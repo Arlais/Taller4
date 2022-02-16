@@ -19,16 +19,25 @@ public class ECISpringBoot {
         try{
             HttpServer httpServer = new HttpServer();
             httpServer.start();
-        }
+        } catch ()
     }
+
+    public void loadComponents(){
+        String[] componentList = searchComponentList();
+    }
+
+    public String[] searchComponentList(){
+        return new String[]{co.edu.escuelaing.ecispringboot.httpserver}
+    }
+
     private void loadServices(String componentName){
         try{
             Class c=Class.forName(componentName);
             Method[] declaredMethods  = c.getDeclaredMethods();
             for(Method m: declaredMethods){
                 if(m.isAnnotationPresent(Service.class)){
-                    Service a = m.getDeclaredAnnotation(Service.Class);
-                    services.put(a.getValue(),m);
+                    Service a = m.getDeclaredAnnotation(Service.class);
+                    services.put(a.value(),m);
                 }
             }
         } catch (ClassNotFoundException e){
